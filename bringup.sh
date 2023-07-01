@@ -80,6 +80,7 @@ fi
 
 source_path=$(cd "$(dirname -- "$0")"; pwd)
 
+. "$source_path/arch/$architecture/vars.sh"
 . "$source_path/check_prereq.sh"
 
 mkdir -p $out && cd $out

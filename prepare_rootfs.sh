@@ -1,4 +1,4 @@
-debootstrap --include=dbus,sudo,nano,iproute2,make,gcc,initramfs-tools,systemd-resolved,systemd-timesyncd,openssh-server,locales --arch=$architecture bookworm rootfs http://ftp.us.debian.org/debian/
+debootstrap --include=dbus,sudo,nano,iproute2,make,gcc,initramfs-tools,systemd-resolved,systemd-timesyncd,openssh-server,locales,xz-utils --arch=$deb_arch bookworm rootfs http://ftp.us.debian.org/debian/
 
 rootfs_uuid=$(blkid -s UUID -o value ${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${loopdev}p2)
@@ -11,6 +11,14 @@ EOF
 cat > rootfs/etc/systemd/network/enp.network <<EOF
 [Match]
 Name=enp*
+
+[Network]
+DHCP=yes
+EOF
+
+cat > rootfs/etc/systemd/network/eth.network <<EOF
+[Match]
+Name=eth*
 
 [Network]
 DHCP=yes

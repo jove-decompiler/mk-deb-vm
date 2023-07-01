@@ -34,4 +34,4 @@ checkBin parted      || { echo >&2 "parted required."; exit 1; }
 checkBin losetup     || { echo >&2 "losetup required."; exit 1; }
 checkBin blkid       || { echo >&2 "blkid required."; exit 1; }
 
-checkBin ${cross_prefix}gcc || { echo >&2 "$cross_prefix-gcc compiler required."; exit 1; }
+checkBin ${cross_prefix}gcc || { echo >&2 "${cross_prefix}gcc compiler required."; exit 1; }
