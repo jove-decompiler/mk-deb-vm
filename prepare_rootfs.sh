@@ -49,5 +49,8 @@ arch-chroot rootfs /bin/bash /root/prepare_rootfs.sh
 
 . "${source_path}/arch/${architecture}/prepare_rootfs.sh"
 
+arch-chroot rootfs /bin/bash /root/prepare_rootfs_arch.sh
+#rm rootfs/root/prepare_rootfs_arch.sh
+
 # do this last
 ln -sf ../run/systemd/resolve/stub-resolv.conf rootfs/etc/resolv.conf
