@@ -1,4 +1,4 @@
-debootstrap --include=dbus,sudo,nano,iproute2,make,gcc,initramfs-tools,systemd-resolved,systemd-timesyncd,openssh-server,locales,xz-utils --arch=$deb_arch bookworm rootfs http://ftp.us.debian.org/debian/
+debootstrap --include=dbus,sudo,nano,iproute2,make,gcc,initramfs-tools,systemd-resolved,systemd-timesyncd,openssh-server,locales,xz-utils,zstd --arch=$deb_arch bookworm rootfs http://ftp.us.debian.org/debian/
 
 root_uuid=$(blkid -s UUID -o value ${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${loopdev}p2)
@@ -44,12 +44,12 @@ export DEBIAN_FRONTEND=noninteractive
 dpkg-reconfigure locales
 EOF
 
-arch-chroot rootfs /bin/bash /root/prepare_rootfs.sh
+arch-chroot rootfs /bin/bash -l /root/prepare_rootfs.sh
 #rm rootfs/root/prepare_rootfs.sh
 
 . "${source_path}/arch/${architecture}/prepare_rootfs.sh"
 
-arch-chroot rootfs /bin/bash /root/prepare_rootfs_arch.sh
+arch-chroot rootfs /bin/bash -l /root/prepare_rootfs_arch.sh
 #rm rootfs/root/prepare_rootfs_arch.sh
 
 # do this last

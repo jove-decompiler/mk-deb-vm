@@ -5,11 +5,6 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-if [ ! -f "/etc/debian_version" ]; then
-  echo "debian environment required" >&2
-  exit 1
-fi
-
 # usage: checkBin <binary name/path>
 function checkBin() {
   local _binary="$1" _full_path
@@ -34,4 +29,4 @@ checkBin parted      || { echo >&2 "parted required."; exit 1; }
 checkBin losetup     || { echo >&2 "losetup required."; exit 1; }
 checkBin blkid       || { echo >&2 "blkid required."; exit 1; }
 
-checkBin ${cross_prefix}gcc || { echo >&2 "${cross_prefix}gcc compiler required."; exit 1; }
+#checkBin ${cross_prefix}gcc || { echo >&2 "${cross_prefix}gcc compiler required."; exit 1; }
