@@ -8,6 +8,8 @@ UUID=$root_uuid /    ext2 rw,relatime,noatime  0 1
 UUID=$swap_uuid none swap defaults             0 0
 EOF
 
+echo "$hostname" > rootfs/etc/hostname
+
 cat > rootfs/etc/systemd/network/enp.network <<EOF
 [Match]
 Name=enp*

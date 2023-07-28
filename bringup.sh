@@ -14,7 +14,7 @@ function usage() {
 
 out=""
 username="user"
-hostname="linux-emulation"
+hostname=""
 architecture=""
 deb_suite="testing"
 
@@ -86,6 +86,10 @@ esac
 if [ -z "$cross_prefix" ]; then
   echo "unknown architecture." >&2
   exit 1
+fi
+
+if [ -z "$hostname" ]; then
+  hostname="deb-$architecture-vm"
 fi
 
 source_path=$(cd "$(dirname -- "$0")"; pwd)
