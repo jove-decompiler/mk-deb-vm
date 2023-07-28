@@ -12,7 +12,7 @@ qemu-system-aarch64 -M virt \\
                     -device virtio-blk-device,drive=hd0 \\
                     -netdev user,id=net0,hostfwd=tcp::10022-:22 \\
                     -device virtio-net-device,netdev=net0 \\
-                    -append "nokaslr root=/dev/vda1 rootwait console=ttyAMA0,115200" \\
+                    -append "nokaslr nr_cpus=1 root=/dev/vda1 rootwait console=ttyAMA0,115200" \\
                     -serial pty \\
                     -nographic
 EOF

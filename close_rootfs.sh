@@ -1,3 +1,1 @@
-umount rootfs
-losetup -d $loopdev
-rm -r rootfs
+close_rootfs

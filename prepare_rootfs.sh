@@ -1,11 +1,11 @@
-debootstrap --include=dbus,sudo,nano,iproute2,make,gcc,initramfs-tools,systemd-resolved,systemd-timesyncd,openssh-server,locales,xz-utils,zstd --arch=$deb_arch bookworm rootfs http://ftp.us.debian.org/debian/
+debootstrap --include=${deb_extra_packages}nano,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd --arch=$deb_arch $deb_suite rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
 
 root_uuid=$(blkid -s UUID -o value ${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${loopdev}p2)
 
 cat > rootfs/etc/fstab <<EOF
-UUID=$root_uuid /    ext4 rw,relatime 0 1
-UUID=$swap_uuid none swap defaults    0 0
+UUID=$root_uuid /    ext2 rw,relatime,noatime  0 1
+UUID=$swap_uuid none swap defaults             0 0
 EOF
 
 cat > rootfs/etc/systemd/network/enp.network <<EOF
@@ -29,8 +29,7 @@ sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' rootfs/etc/s
 
 cat > rootfs/root/prepare_rootfs.sh <<EOF
 #!/bin/bash
-rm -f /etc/resolv.conf
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
+rm -f /etc/resolv.conf && echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
@@ -44,13 +43,13 @@ export DEBIAN_FRONTEND=noninteractive
 dpkg-reconfigure locales
 EOF
 
-arch-chroot rootfs /bin/bash -l /root/prepare_rootfs.sh
-#rm rootfs/root/prepare_rootfs.sh
+arch-chroot rootfs /bin/bash --login /root/prepare_rootfs.sh
+rm rootfs/root/prepare_rootfs.sh
 
 . "${source_path}/arch/${architecture}/prepare_rootfs.sh"
 
-arch-chroot rootfs /bin/bash -l /root/prepare_rootfs_arch.sh
-#rm rootfs/root/prepare_rootfs_arch.sh
+arch-chroot rootfs /bin/bash --login /root/prepare_rootfs_arch.sh
+rm rootfs/root/prepare_rootfs_arch.sh
 
 # do this last
 ln -sf ../run/systemd/resolve/stub-resolv.conf rootfs/etc/resolv.conf

@@ -1,3 +1,5 @@
+rm -f vm.raw
+
 truncate -s 60G vm.raw
 
 parted --script vm.raw \

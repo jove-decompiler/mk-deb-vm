@@ -9,14 +9,16 @@ function usage() {
     echo "    -a architecture  Architecture of guest."
     echo "    -u username      Username to create. Default: \"user\"."
     echo "    -h hostname      Hostname of VM."
+    echo "    -s suite         release code or symbolic name (see debootstrap(8))"
 }
 
 out=""
 username="user"
 hostname="linux-emulation"
 architecture=""
+deb_suite="testing"
 
-while getopts ":o:u:a:h:" opt; do
+while getopts ":o:u:a:h:s:" opt; do
  case $opt in
     o) out=$OPTARG
        ;;
@@ -25,6 +27,8 @@ while getopts ":o:u:a:h:" opt; do
     u) username=$OPTARG
        ;;
     h) hostname=$OPTARG
+       ;;
+    s) deb_suite=$OPTARG
        ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -80,8 +84,10 @@ fi
 
 source_path=$(cd "$(dirname -- "$0")"; pwd)
 
-. "$source_path/arch/$architecture/vars.sh"
+trap 'exit' ERR
+
 . "$source_path/check_prereq.sh"
+. "$source_path/vars.sh"
 
 mkdir -p $out && cd $out
 
