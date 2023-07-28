@@ -4,7 +4,7 @@ cp -L rootfs/initrd.img .
 cat > run.sh <<EOF
 #!/bin/bash
 qemu-system-i386 -M pc \\
-                 -cpu coreduo \\
+                 -cpu qemu32 \\
                  -kernel vmlinuz \\
                  -initrd initrd.img \\
                  -m 2048 \\
