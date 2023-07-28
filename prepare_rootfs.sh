@@ -29,6 +29,10 @@ sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' rootfs/etc/s
 
 cat > rootfs/root/prepare_rootfs.sh <<EOF
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
+
+dpkg-reconfigure locales
+
 rm -f /etc/resolv.conf && echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 systemctl enable systemd-networkd
@@ -37,10 +41,6 @@ systemctl enable systemd-timesyncd.service
 systemctl enable sshd
 
 echo 'root:root' | chpasswd
-
-export DEBIAN_FRONTEND=noninteractive
-
-dpkg-reconfigure locales
 EOF
 
 arch-chroot rootfs /bin/bash --login /root/prepare_rootfs.sh
