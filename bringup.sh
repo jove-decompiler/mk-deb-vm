@@ -4,7 +4,7 @@
 OPTIND=1
 
 function usage() {
-    echo "usage: $0 -o output [-a architecture] [-u username] [-h hostname]"
+    echo "usage: $0 -o output -a architecture [-u username] [-h hostname] [-s suite]"
     echo "    -o directory     Path to output directory."
     echo "    -a architecture  Architecture of guest."
     echo "    -u username      Username to create. Default: \"user\"."
