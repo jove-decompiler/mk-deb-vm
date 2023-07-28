@@ -55,7 +55,7 @@ fi
 
 case $architecture in
 ?)
-  echo "List of valid architectures: i386,mipsel,mips,mips64el,aarch64"
+  echo "List of valid architectures: i386,x86_64,mipsel,mips,mips64el,aarch64"
   exit 0
 ;;
 esac
@@ -65,6 +65,9 @@ cross_prefix=""
 case $architecture in
 i386)
   cross_prefix="i686-linux-gnu-"
+;;
+x86_64)
+  cross_prefix="x86_64-linux-gnu-"
 ;;
 mipsel)
   cross_prefix="mipsel-linux-gnu-"
