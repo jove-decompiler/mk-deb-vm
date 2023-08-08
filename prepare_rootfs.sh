@@ -1,4 +1,4 @@
-debootstrap --include=${deb_extra_packages}nano,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd --arch=$deb_arch $deb_suite rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
+debootstrap --include=${deb_extra_packages}nano,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd,systemd-coredump --arch=$deb_arch $deb_suite rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
 
 root_uuid=$(blkid -s UUID -o value ${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${loopdev}p2)
