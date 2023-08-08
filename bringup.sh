@@ -10,6 +10,7 @@ function usage() {
     echo "    -u username      Username to create. Default: \"user\"."
     echo "    -h hostname      Hostname of VM."
     echo "    -s suite         release code or symbolic name (see debootstrap(8))"
+    echo "    -f               serial output to fifo"
 }
 
 out=""
@@ -18,7 +19,9 @@ hostname=""
 architecture=""
 deb_suite="testing"
 
-while getopts ":o:u:a:h:s:" opt; do
+serial_arg=""
+
+while getopts ":o:u:a:h:s:f" opt; do
  case $opt in
     o) out=$OPTARG
        ;;
@@ -29,6 +32,8 @@ while getopts ":o:u:a:h:s:" opt; do
     h) hostname=$OPTARG
        ;;
     s) deb_suite=$OPTARG
+       ;;
+    f) serial_arg="pipe:x"
        ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2

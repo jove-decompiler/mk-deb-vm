@@ -12,6 +12,6 @@ qemu-system-mips -M malta \\
                  -netdev user,id=net0,hostfwd=tcp::10022-:22 \\
                  -device e1000,netdev=net0 \\
                  -append "nokaslr nr_cpus=1 root=/dev/sda1 rootwait console=ttyS0,115200" \\
-                 -serial pty \\
+                 -serial $serial_arg \\
                  -nographic
 EOF
