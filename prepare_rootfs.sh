@@ -10,6 +10,8 @@ EOF
 
 echo "$hostname" > rootfs/etc/hostname
 
+rm -f rootfs/etc/motd
+
 cat > rootfs/etc/hosts <<EOF
 127.0.0.1       localhost
 
