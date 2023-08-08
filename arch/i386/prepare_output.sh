@@ -13,6 +13,6 @@ qemu-system-i386 -M pc \\
                  -netdev user,id=net0,hostfwd=tcp::10022-:22 \\
                  -device virtio-net-pci,netdev=net0 \\
                  -append "nokaslr nr_cpus=1 root=/dev/vda1 rootwait console=ttyS0,115200" \\
-                 -serial pty \\
+                 -serial $serial_arg \\
                  -nographic
 EOF
