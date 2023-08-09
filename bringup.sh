@@ -11,6 +11,7 @@ function usage() {
     echo "    -h hostname      Hostname of VM."
     echo "    -s suite         release code or symbolic name (see debootstrap(8))"
     echo "    -f               serial output to fifo"
+    echo "    -p port          port # to access guest ssh"
 }
 
 out=""
@@ -19,9 +20,10 @@ hostname=""
 architecture=""
 deb_suite="testing"
 
+ssh_port="10022"
 serial_arg=""
 
-while getopts ":o:u:a:h:s:f" opt; do
+while getopts ":o:u:a:h:s:p:f" opt; do
  case $opt in
     o) out=$OPTARG
        ;;
@@ -34,6 +36,8 @@ while getopts ":o:u:a:h:s:f" opt; do
     s) deb_suite=$OPTARG
        ;;
     f) serial_arg="pipe:x"
+       ;;
+    p) ssh_port=$OPTARG
        ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2

@@ -12,6 +12,17 @@ echo "$hostname" > rootfs/etc/hostname
 
 rm -f rootfs/etc/motd
 
+#
+# if ssh public key exists, mark it as authorized under guest
+#
+if [ -e $HOME/.ssh/id_rsa.pub ] ; then
+  mkdir -p rootfs/root/.ssh
+  chmod 0755 rootfs/root/.ssh
+  cp $HOME/.ssh/id_rsa.pub rootfs/root/.ssh/authorized_keys
+  chmod 0600 rootfs/root/.ssh/authorized_keys
+fi
+
+
 cat > rootfs/etc/hosts <<EOF
 127.0.0.1       localhost
 
