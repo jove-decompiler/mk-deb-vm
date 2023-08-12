@@ -1,6 +1,4 @@
-loopdev=$(losetup -f | tr -cd '/a-z0-9')
-
-losetup $loopdev vm.raw
+loopdev=$(losetup --find --show vm.raw | tr -cd '/a-z0-9')
 
 #
 # from this point onward, we have to make sure we delete the loopback device we
