@@ -4,8 +4,8 @@ root_uuid=$(blkid -s UUID -o value ${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${loopdev}p2)
 
 cat > rootfs/etc/fstab <<EOF
-UUID=$root_uuid /    ext2 rw,relatime,noatime  0 1
-UUID=$swap_uuid none swap defaults             0 0
+UUID=$root_uuid /    ext2 rw,relatime  0 1
+UUID=$swap_uuid none swap defaults     0 0
 EOF
 
 echo "$hostname" > rootfs/etc/hostname
