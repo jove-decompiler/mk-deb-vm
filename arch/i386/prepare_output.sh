@@ -13,6 +13,6 @@ qemu-system-i386 -M pc \\
                  -netdev user,id=net0,hostfwd=tcp::$ssh_port-:22 \\
                  -device virtio-net-pci,netdev=net0 \\
                  -append "nokaslr nosmp root=/dev/vda1 rootwait console=ttyS0,115200" \\
-                 -serial $serial_arg \\
+                 "\$@" \\
                  -nographic
 EOF

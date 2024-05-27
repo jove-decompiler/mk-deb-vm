@@ -10,7 +10,6 @@ function usage() {
     echo "    -u username      Username to create. Default: \"user\"."
     echo "    -h hostname      Hostname of VM."
     echo "    -s suite         release code or symbolic name (see debootstrap(8))"
-    echo "    -f               serial output to fifo"
     echo "    -p port          port # to access guest ssh"
 }
 
@@ -21,7 +20,6 @@ architecture=""
 deb_suite="testing"
 
 ssh_port="10022"
-serial_arg=""
 
 while getopts ":o:u:a:h:s:p:f" opt; do
  case $opt in
@@ -34,8 +32,6 @@ while getopts ":o:u:a:h:s:p:f" opt; do
     h) hostname=$OPTARG
        ;;
     s) deb_suite=$OPTARG
-       ;;
-    f) serial_arg="pipe:x"
        ;;
     p) ssh_port=$OPTARG
        ;;
