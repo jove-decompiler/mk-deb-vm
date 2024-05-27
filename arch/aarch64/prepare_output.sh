@@ -13,6 +13,6 @@ qemu-system-aarch64 -M virt \\
                     -netdev user,id=net0,hostfwd=tcp::$ssh_port-:22 \\
                     -device virtio-net-device,netdev=net0 \\
                     -append "nokaslr nosmp root=/dev/vda1 rootwait console=ttyAMA0,115200" \\
-                    -serial $serial_arg \\
+                    "\$@" \\
                     -nographic
 EOF

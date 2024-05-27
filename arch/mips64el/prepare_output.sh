@@ -12,6 +12,6 @@ qemu-system-mips64el -M malta \\
                      -netdev user,id=net0,hostfwd=tcp::$ssh_port-:22 \\
                      -device e1000,netdev=net0 \\
                      -append "nokaslr nosmp root=/dev/sda1 rootwait console=ttyS0,115200" \\
-                     -serial $serial_arg \\
+                     "\$@" \\
                      -nographic
 EOF
