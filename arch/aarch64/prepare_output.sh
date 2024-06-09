@@ -1,10 +1,10 @@
 cp -L rootfs/vmlinuz .
 cp -L rootfs/initrd.img .
 
-cat > run.sh <<EOF
-#!/bin/bash
+cat >> run.sh <<EOF
 qemu-system-aarch64 -M virt \\
                     -cpu cortex-a57 \\
+                    \$kvm \\
                     -kernel vmlinuz \\
                     -initrd initrd.img \\
                     -m 2048 \\
