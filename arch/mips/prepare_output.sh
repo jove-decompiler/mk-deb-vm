@@ -1,10 +1,10 @@
 cp -L rootfs/vmlinux .
 cp -L rootfs/initrd.img .
 
-cat > run.sh <<EOF
-#!/bin/bash
+cat >> run.sh <<EOF
 qemu-system-mips -M malta \\
                  -cpu 4KEc \\
+                 \$kvm \\
                  -kernel vmlinux \\
                  -initrd initrd.img \\
                  -m 2048 \\
