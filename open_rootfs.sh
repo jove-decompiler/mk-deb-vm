@@ -1,10 +1,15 @@
 mkdir rootfs
-mount ${loopdev}p1 rootfs
+mount ${newroot}${loopdev}p1 rootfs
 
 close_rootfs () {
   umount rootfs
-  losetup -d $loopdev
+  $_losetup -d $loopdev
   rm -r rootfs
+
+  if [ -n "$newroot" ]; then
+    # delete hard link
+    rm ${newroot}vm.raw
+  fi
 }
 
 #
