@@ -1,4 +1,4 @@
-loopdev=$(losetup --find --show vm.raw | tr -cd '/a-z0-9')
+loopdev=$($_losetup --find --show vm.raw | tr -cd '/a-z0-9')
 
 #
 # from this point onward, we have to make sure we delete the loopback device we
@@ -6,13 +6,13 @@ loopdev=$(losetup --find --show vm.raw | tr -cd '/a-z0-9')
 #
 on_error_0 () {
   errorCode=$?
-  losetup -d $loopdev
+  $_losetup -d $loopdev
   exit $errorCode
 }
 
 trap on_error_0 ERR
 
-partprobe $loopdev
+partprobe ${newroot}$loopdev
 
-mkfs.ext2 ${loopdev}p1
-mkswap ${loopdev}p2
+mkfs.ext2 ${newroot}${loopdev}p1
+mkswap ${newroot}${loopdev}p2

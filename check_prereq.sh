@@ -5,6 +5,21 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+#
+# losetup. if we have chroot, find it in there.
+#
+_losetup=""
+if [ -z "$newroot" ]; then
+  _losetup="$(which losetup)"
+else
+  newroot="${newroot}/"
+  _newroot_path_to_losetup="$(chroot $newroot which losetup)"
+  _losetup="chroot $newroot $_newroot_path_to_losetup"
+fi
+
+# confirm we have losetup
+$_losetup --version
+
 function checkBin() {
   local _binary="$1" _full_path
 
