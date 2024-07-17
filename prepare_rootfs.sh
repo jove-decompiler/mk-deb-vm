@@ -13,15 +13,22 @@ echo "$hostname" > rootfs/etc/hostname
 rm -f rootfs/etc/motd
 
 #
-# if ssh public key exists, mark it as authorized under guest
+# get home directory of current user, or the user that ran sudo
 #
-if [ -e $HOME/.ssh/id_rsa.pub ] ; then
-  mkdir -p rootfs/root/.ssh
-  chmod 0755 rootfs/root/.ssh
-  cp $HOME/.ssh/id_rsa.pub rootfs/root/.ssh/authorized_keys
-  chmod 0600 rootfs/root/.ssh/authorized_keys
+home_dir="$HOME"
+if [ -n "$SUDO_USER" ]; then
+  home_dir=$(eval echo ~$SUDO_USER)
 fi
 
+#
+# if ssh public key exists, mark it as authorized under guest
+#
+if [ -e ${home_dir}/.ssh/id_rsa.pub ] ; then
+  mkdir -p rootfs/root/.ssh
+  chmod 0755 rootfs/root/.ssh
+  cp ${home_dir}/.ssh/id_rsa.pub rootfs/root/.ssh/authorized_keys
+  chmod 0600 rootfs/root/.ssh/authorized_keys
+fi
 
 cat > rootfs/etc/hosts <<EOF
 127.0.0.1       localhost
