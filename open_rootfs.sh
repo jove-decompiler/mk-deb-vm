@@ -8,7 +8,7 @@ close_rootfs () {
 
   if [ -n "$newroot" ]; then
     # delete hard link
-    rm ${newroot}vm.raw
+    rm ${newroot}${vm_disk}
   fi
 }
 
