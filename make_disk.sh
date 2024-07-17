@@ -7,7 +7,10 @@ parted --script vm.raw \
   mkpart primary ext2 0% 90% \
   mkpart primary linux-swap 90% 100%
 
+vm_disk="vm.raw"
 if [ -n "$newroot" ]; then
+  vm_disk="vm.${architecture}.raw"
+
   # create hard link
-  ln vm.raw ${newroot}vm.raw
+  ln vm.raw ${newroot}${vm_disk}
 fi
