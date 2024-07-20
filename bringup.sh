@@ -23,7 +23,7 @@ deb_suite="testing"
 ssh_port="10022"
 newroot=""
 
-while getopts ":o:u:a:h:s:p:X:f" opt; do
+while getopts ":o:u:a:h:s:p:X:" opt; do
  case $opt in
     o) out=$OPTARG
        ;;
