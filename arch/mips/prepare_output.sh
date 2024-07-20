@@ -11,7 +11,7 @@ qemu-system-mips -M malta \\
                  -drive if=ide,format=raw,file=vm.raw,media=disk \\
                  -netdev user,id=net0,hostfwd=tcp::$ssh_port-:22 \\
                  -device e1000,netdev=net0 \\
-                 -append "nokaslr nosmp root=/dev/sda1 rootwait console=ttyS0,115200" \\
+                 -append "nokaslr norandmaps nosmp root=/dev/sda1 rootwait console=ttyS0,115200" \\
                  "\$@" \\
                  -nographic
 EOF
