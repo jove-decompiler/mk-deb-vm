@@ -7,7 +7,7 @@ qemu-system-x86_64 -M pc \\
                    \$kvm \\
                    -kernel vmlinuz \\
                    -initrd initrd.img \\
-                   -m 2048 \\
+                   -m 4096 \\
                    -drive if=none,format=raw,file=vm.raw,media=disk,id=hd0 \\
                    -device virtio-blk-pci,drive=hd0 \\
                    -netdev user,id=net0,hostfwd=tcp::$ssh_port-:22 \\
