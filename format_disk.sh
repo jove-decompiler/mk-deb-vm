@@ -14,5 +14,5 @@ trap on_error_0 ERR
 
 partprobe ${newroot}$loopdev
 
-mkfs.ext2 ${newroot}${loopdev}p1
+mkfs.xfs ${newroot}${loopdev}p1
 mkswap ${newroot}${loopdev}p2

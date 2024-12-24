@@ -1,10 +1,10 @@
-debootstrap --include=${deb_extra_packages}nano,binutils,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd,systemd-coredump --arch=$deb_arch $deb_suite rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
+debootstrap --include=${deb_extra_packages}nano,binutils,xfsprogs,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd,systemd-coredump --arch=$deb_arch $deb_suite rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
 
 root_uuid=$(blkid -s UUID -o value ${newroot}${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${newroot}${loopdev}p2)
 
 cat > rootfs/etc/fstab <<EOF
-UUID=$root_uuid /    ext2 rw,relatime  0 1
+UUID=$root_uuid /    xfs rw,relatime  0 1
 UUID=$swap_uuid none swap defaults     0 0
 EOF
 
