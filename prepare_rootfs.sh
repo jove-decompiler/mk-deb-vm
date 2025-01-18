@@ -73,6 +73,8 @@ systemctl enable systemd-timesyncd.service
 systemctl enable sshd
 
 echo 'root:root' | chpasswd
+
+apt --fix-broken -y install
 EOF
 
 arch-chroot rootfs /bin/bash --login /root/prepare_rootfs.sh
