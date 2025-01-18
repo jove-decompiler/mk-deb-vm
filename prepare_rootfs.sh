@@ -1,4 +1,4 @@
-debootstrap --include=${deb_extra_packages}nano,binutils,xfsprogs,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd,systemd-coredump --arch=$deb_arch bookworm --extra-suites=bookworm-updates rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
+debootstrap --include=${deb_extra_packages}nano,binutils,xfsprogs,iproute2,initramfs-tools,openssh-server,locales,xz-utils,zstd,systemd-coredump --arch=$deb_arch --extra-suites=bookworm-updates bookworm rootfs $deb_mirror || { echo >&2 "debootstrap failed." ; cat rootfs/debootstrap/debootstrap.log ; close_rootfs ; exit 1; }
 
 root_uuid=$(blkid -s UUID -o value ${newroot}${loopdev}p1)
 swap_uuid=$(blkid -s UUID -o value ${newroot}${loopdev}p2)
