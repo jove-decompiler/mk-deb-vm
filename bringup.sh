@@ -12,6 +12,7 @@ function usage() {
     echo "    -s suite         release code or symbolic name (see debootstrap(8))"
     echo "    -p port          port # to access guest ssh"
     echo "    -X NEWROOT       root directory with /dev/loop* to chroot into"
+    echo "    -w               Boolean switch (no argument) to install wine."
 }
 
 out=""
@@ -22,8 +23,9 @@ deb_suite="testing"
 
 ssh_port="10022"
 newroot=""
+wine=""
 
-while getopts ":o:u:a:h:s:p:X:" opt; do
+while getopts ":o:u:a:h:s:p:X:w" opt; do
  case $opt in
     o) out=$OPTARG
        ;;
@@ -38,6 +40,8 @@ while getopts ":o:u:a:h:s:p:X:" opt; do
     p) ssh_port=$OPTARG
        ;;
     X) newroot=$OPTARG
+       ;;
+    w) wine="wine"
        ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
