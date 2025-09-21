@@ -9,7 +9,7 @@ parted --script vm.raw \
 
 vm_disk="vm.raw"
 if [ -n "$newroot" ]; then
-  vm_disk="vm.${architecture}.raw"
+  vm_disk="vm.${platform}.${architecture}.raw"
 
   # create hard link
   ln vm.raw ${newroot}${vm_disk}

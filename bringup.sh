@@ -24,6 +24,7 @@ deb_suite="testing"
 ssh_port="10022"
 newroot=""
 wine=""
+platform="linux"
 
 while getopts ":o:u:a:h:s:p:X:w" opt; do
  case $opt in
@@ -42,6 +43,7 @@ while getopts ":o:u:a:h:s:p:X:w" opt; do
     X) newroot=$OPTARG
        ;;
     w) wine="wine"
+       platform="win"
        ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
